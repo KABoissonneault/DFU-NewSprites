@@ -1,0 +1,13 @@
+{
+    "ModTitle": "New Sprites",
+    "ModVersion": "0.1",
+    "ModAuthor": "Kab the Bird Ranger",
+    "ContactInfo": "kaboissonneault@gmail.com",
+    "DFUnity_Version": "0.11.4",
+    "ModDescription": "Adds new sprites",
+    "GUID": "bf9dd044-0f78-491f-80de-9604677cb8f1",
+    "Files": [
+        "Assets/Game/Mods/NewSprites/NewSprites.dfmod.json",
+        "Assets/Game/Mods/NewSprites/Scripts/NewSprites.cs"
+    ]
+}
