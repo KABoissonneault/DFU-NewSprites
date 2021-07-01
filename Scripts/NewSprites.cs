@@ -34,8 +34,6 @@ namespace NewSpritesMod
 
         private void Awake()
         {
-            DaggerfallUnity.Instance.TextProvider = new NewSpritesTextProvider(DaggerfallUnity.Instance.TextProvider);
-
             QuestMachine.Instance.FoesTable.AddIntoTable(new string[] { "147, Druid" });
 
             ArrayUtility.Add(ref EnemyBasics.Enemies, new MobileEnemy()
@@ -44,7 +42,7 @@ namespace NewSpritesMod
                 Behaviour = MobileBehaviour.General,
                 Affinity = MobileAffinity.Human,
                 MaleTexture = 1000,
-                FemaleTexture = 1000,
+                FemaleTexture = 1001,
                 CorpseTexture = EnemyBasics.CorpseTexture(380, 1),
                 HasIdle = true,
                 HasRangedAttack1 = false,
