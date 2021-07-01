@@ -1,6 +1,7 @@
 using System.Linq;
 
 using UnityEngine;
+using UnityEditor;
 
 using DaggerfallConnect;
 using DaggerfallWorkshop;
@@ -37,39 +38,35 @@ namespace NewSpritesMod
 
             QuestMachine.Instance.FoesTable.AddIntoTable(new string[] { "147, Druid" });
 
-            var Enemies = EnemyBasics.Enemies.ToList();
-            Enemies.Add(
-                new MobileEnemy()
-                {
-                    ID = DruidCareerIndex,
-                    Behaviour = MobileBehaviour.General,
-                    Affinity = MobileAffinity.Human,
-                    MaleTexture = 486,
-                    FemaleTexture = 486,
-                    CorpseTexture = EnemyBasics.CorpseTexture(380, 1),
-                    HasIdle = true,
-                    HasRangedAttack1 = false, // Mage is true, but is hardcoded to use spells instead of bows
-                    HasRangedAttack2 = false,
-                    CanOpenDoors = true,
-                    MoveSound = (int)SoundClips.EnemyHumanMove,
-                    BarkSound = (int)SoundClips.EnemyHumanBark,
-                    AttackSound = (int)SoundClips.EnemyHumanAttack,
-                    ParrySounds = false,
-                    MapChance = 3,
-                    LootTableKey = "U",
-                    Weight = 350,
-                    CastsMagic = true,
-                    PrimaryAttackAnimFrames = new int[] { 0, 1, -1, 3, 2, 1, 0, -1, 5, 4, 0 },
-                    ChanceForAttack2 = 33,
-                    PrimaryAttackAnimFrames2 = new int[] { 0, 1, -1, 3, 2, 1, 0 },
-                    ChanceForAttack3 = 33,
-                    PrimaryAttackAnimFrames3 = new int[] { 0, -1, 5, 4, 0 },
-                    HasSpellAnimation = true,
-                    SpellAnimFrames = new int[] { 0, 1, 2, 3, 3 },
-                    Team = MobileTeams.Bears,
-                }
-            );
-            EnemyBasics.Enemies = Enemies.ToArray();
+            ArrayUtility.Add(ref EnemyBasics.Enemies, new MobileEnemy()
+            {
+                ID = DruidCareerIndex,
+                Behaviour = MobileBehaviour.General,
+                Affinity = MobileAffinity.Human,
+                MaleTexture = 1000,
+                FemaleTexture = 1000,
+                CorpseTexture = EnemyBasics.CorpseTexture(380, 1),
+                HasIdle = true,
+                HasRangedAttack1 = false,
+                HasRangedAttack2 = false,
+                CanOpenDoors = true,
+                MoveSound = (int)SoundClips.EnemyHumanMove,
+                BarkSound = (int)SoundClips.EnemyHumanBark,
+                AttackSound = (int)SoundClips.EnemyHumanAttack,
+                ParrySounds = false,
+                MapChance = 3,
+                LootTableKey = "U",
+                Weight = 350,
+                CastsMagic = true,
+                PrimaryAttackAnimFrames = new int[] { 0, 1, -1, 3, 2, 1, 0, -1, 5, 4, 0 },
+                ChanceForAttack2 = 33,
+                PrimaryAttackAnimFrames2 = new int[] { 0, 1, -1, 3, 2, 1, 0 },
+                ChanceForAttack3 = 33,
+                PrimaryAttackAnimFrames3 = new int[] { 0, -1, 5, 4, 0 },
+                HasSpellAnimation = true,
+                SpellAnimFrames = new int[] { 0, 1, 2, 3, 3 },
+                Team = MobileTeams.Bears,
+            });
 
             DaggerfallEntity.CustomCareerTemplates.Add(DruidCareerIndex, new DFCareer()
             {
@@ -131,7 +128,6 @@ namespace NewSpritesMod
         void SetupDruid(EnemyEntity enemyEntity, EnemyLootSpawnedEventArgs args)
         {
             var career = args.EnemyCareer;
-            var mobileEnemy = args.MobileEnemy;
 
             var player = GameManager.Instance.PlayerEntity;
             var level = player.Level;
