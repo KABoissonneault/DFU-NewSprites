@@ -113,7 +113,7 @@ namespace NewSpritesMod
                 Behaviour = MobileBehaviour.General,
                 Affinity = MobileAffinity.Human,
                 MaleTexture = 1002,
-                FemaleTexture = 1002,
+                FemaleTexture = 1003,
                 CorpseTexture = EnemyBasics.CorpseTexture(380, 1),
                 HasIdle = true,
                 HasRangedAttack1 = false,
@@ -298,7 +298,21 @@ namespace NewSpritesMod
 
         void SetupNecromancer(EnemyEntity enemyEntity, EnemyLootSpawnedEventArgs args)
         {
+            var career = args.EnemyCareer;
 
+            var player = GameManager.Instance.PlayerEntity;
+            var level = player.Level;
+
+            enemyEntity.Level = level;
+            enemyEntity.MaxHealth = FormulaHelper.RollEnemyClassMaxHealth(level, career.HitPointsPerLevel);
+
+            DaggerfallUnityItem weapon = ItemBuilder.CreateWeapon(Weapons.Staff, FormulaHelper.RandomMaterial(level));
+            enemyEntity.ItemEquipTable.EquipItem(weapon, alwaysEquip: true, playEquipSounds: false);
+            enemyEntity.Items.AddItem(weapon);
+
+            int spellTable = Mathf.Clamp(level / 3 + 2, 0, 6);
+
+            enemyEntity.SetEnemySpells(EnemyClassSpells[spellTable]);
         }
 
         static string ExportTextureProperties(string[] args)
