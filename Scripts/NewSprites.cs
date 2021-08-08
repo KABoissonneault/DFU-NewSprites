@@ -18,6 +18,7 @@ using DaggerfallConnect.Utility;
 using DaggerfallWorkshop.Utility.AssetInjection;
 using System.IO;
 using System.Xml;
+using System.Collections.Generic;
 
 namespace NewSpritesMod
 {
@@ -45,7 +46,8 @@ namespace NewSpritesMod
         {
             QuestMachine.Instance.FoesTable.AddIntoTable(new string[] { "147, Druid" });
 
-            ArrayUtility.Add(ref EnemyBasics.Enemies, new MobileEnemy()
+            List<MobileEnemy> enemies = EnemyBasics.Enemies.ToList();
+            enemies.Add(new MobileEnemy()
             {
                 ID = DruidCareerIndex,
                 Behaviour = MobileBehaviour.General,
@@ -74,7 +76,7 @@ namespace NewSpritesMod
                 Team = MobileTeams.Bears,
             });
 
-            DaggerfallEntity.CustomCareerTemplates.Add(DruidCareerIndex, new DFCareer()
+            DaggerfallEntity.RegisterCustomCareerTemplate(DruidCareerIndex, new DFCareer()
             {
                 Name = "Druid",
                 HitPointsPerLevel = 6,
@@ -107,7 +109,7 @@ namespace NewSpritesMod
                 AcuteHearing = true,
             });
 
-            ArrayUtility.Add(ref EnemyBasics.Enemies, new MobileEnemy()
+            enemies.Add(new MobileEnemy()
             {
                 ID = NecromancerCareerIndex,
                 Behaviour = MobileBehaviour.General,
@@ -136,7 +138,7 @@ namespace NewSpritesMod
                 Team = MobileTeams.Undead,
             });
 
-            DaggerfallEntity.CustomCareerTemplates.Add(NecromancerCareerIndex, new DFCareer()
+            DaggerfallEntity.RegisterCustomCareerTemplate(NecromancerCareerIndex, new DFCareer()
             {
                 Name = "Necromancer",
                 HitPointsPerLevel = 6,
@@ -168,6 +170,8 @@ namespace NewSpritesMod
                 SpellPointMultiplierValue = 2.0f,
                 DamageFromHolyPlaces = true,
             });
+
+            EnemyBasics.Enemies = enemies.ToArray();
 
             EnemyEntity.OnLootSpawned += OnEnemySpawned;
         }
